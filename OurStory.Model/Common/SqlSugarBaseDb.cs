@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OurStory.Model
+namespace OurStory.Model.Common
 {
     public class SqlSugarBaseDb
     {
@@ -25,7 +25,7 @@ namespace OurStory.Model
                 Console.WriteLine(sql + "\r\n" + db.Utilities.SerializeObject(pars.ToDictionary(it => it.ParameterName, it => it.Value)));
                 Console.WriteLine();
             };
-            return db;
+            return db;            
         }
     }
 }
