@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27729.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.API", "OurStory\OurStory.API.csproj", "{F09727BB-4A4A-43F4-8364-104FF268139C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.API", "OurStory.API\OurStory.API.csproj", "{F09727BB-4A4A-43F4-8364-104FF268139C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.Service", "OurStory.Service\OurStory.Service.csproj", "{5A85AB1C-DA41-4CD3-8B95-24BD2C8AD066}"
 EndProject
@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.Model", "OurStory.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.Repository", "OurStory.Repository\OurStory.Repository.csproj", "{5C19FC7B-25C9-455B-8DC1-39F8A0F85895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OurStory.IRepository", "IRepository\OurStory.IRepository.csproj", "{B36750D1-2BFF-41B6-8B8E-8CDF2018CFB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OurStory.IRepository", "OurStory.IRepository\OurStory.IRepository.csproj", "{B36750D1-2BFF-41B6-8B8E-8CDF2018CFB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
