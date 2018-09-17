@@ -9,13 +9,14 @@ namespace OurStory.Model.Common
     public class SqlSugarBaseDb
     {
 
-        public static string _connectionString = "server=.;uid=sa;pwd=123456789;database=OurStory";
+        //public static string _connectionString = "server=.;uid=sa;pwd=123456789;database=OurStory";
+        public static string ConnectionString { get; set; }
         public static SqlSugarClient GetClient()
         {
             SqlSugarClient db = new SqlSugarClient(
                 new ConnectionConfig()
                 {
-                    ConnectionString = _connectionString,
+                    ConnectionString = ConnectionString,
                     DbType = DbType.SqlServer,
                     IsAutoCloseConnection = true
                 }

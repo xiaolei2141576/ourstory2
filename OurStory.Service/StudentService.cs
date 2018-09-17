@@ -1,8 +1,9 @@
-﻿using OurStory.Entity;
-using OurStory.IRepository;
+﻿using OurStory.IRepository;
 using OurStory.IService;
+using OurStory.IService.Base;
 using OurStory.Model;
 using OurStory.Repository;
+using OurStory.Service.Base;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -11,29 +12,8 @@ using System.Text;
 
 namespace OurStory.Service
 {
-    public class StudentService : IStudentService
+    public class StudentService : BaseServices<Student>,IStudentService
     {
-        public IStudentRepository dal = new StudentRepository();
 
-        public int Add(StudentModel model)
-        {
-            return dal.Add(model);
-        }
-
-        public bool Delete(StudentModel model)
-        {
-            return dal.Delete(model);
-        }
-
-        public List<StudentModel> Query(Expression<Func<StudentModel, bool>> whereExpression)
-        {
-            return dal.Query(whereExpression);
-
-        }
-
-        public bool Update(StudentModel model)
-        {
-            return dal.Update(model);
-        }
     }
 }

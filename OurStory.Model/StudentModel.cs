@@ -1,14 +1,16 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace OurStory.Model
 {
-    public class StudentModel
+    public class Student
     {
         /// <summary>
         /// Id
         /// </summary>
+        [SugarColumn(IsPrimaryKey = true)]
         public int Id { get; set; }
 
         /// <summary>

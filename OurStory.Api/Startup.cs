@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OurStory.API.AuthHelper;
 using OurStory.API.SwaggerHelp;
+using OurStory.Model.Common;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace OurStory.API
@@ -30,6 +31,7 @@ namespace OurStory.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
             #region Swagger
             services.AddSwaggerGen(s =>
             {
@@ -50,7 +52,7 @@ namespace OurStory.API
                 //手动高亮
                 //添加header验证信息
                 //c.OperationFilter<SwaggerHeader>();
-                var security = new Dictionary<string, IEnumerable<string>> { { "OurStory", new string[] { } }, };
+                var security = new Dictionary<string, IEnumerable<string>> { { "Bearer", new string[] { } }, };
                 s.AddSecurityRequirement(security);//添加一个必须的全局安全信息，和AddSecurityDefinition方法指定的方案名称要一致，这里是Bearer。
                 s.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {

@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OurStory.IService\OurStory.IService.csproj" />
     <ProjectReference Include="..\OurStory.Model\OurStory.Model.csproj" />
+    <ProjectReference Include="..\OurStory.Service\OurStory.Service.csproj" />
   </ItemGroup>
 
 </Project>
