@@ -12,17 +12,24 @@ using OurStory.Service;
 
 namespace OurStory.API.Controllers.Admin
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize(Policy = "Admin")]
-    [ApiController]
+    //[ApiController]
     public class StudentController : Controller
     {
+        IStudentService studentService;
+        public StudentController(IStudentService studentService)
+        {
+            this.studentService = studentService;
+        }
+
         [HttpGet("{id}",Name = "Get")]
         public async Task<Student> Get(int id)
         {
-            IStudentService service = new StudentService();
+            //IStudentService service = new IStudentService();
 
-            return await service.QueryById(id);
+            return await studentService.QueryById(id);
         }
     }
 }

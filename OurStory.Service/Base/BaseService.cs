@@ -11,7 +11,8 @@ namespace OurStory.Service.Base
 {
     public class BaseServices<TEntity> : IBaseServices<TEntity> where TEntity : class, new()
     {
-        public IBaseRepository<TEntity> baseDal = new BaseRepository<TEntity>();
+        //public IBaseRepository<TEntity> baseDal = new BaseRepository<TEntity>();
+        public IBaseRepository<TEntity> baseDal;
         /// <summary>
         /// 功能描述:根据ID查询一条数据
         /// 作　　者:AZLinli.Blog.Core

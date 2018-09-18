@@ -14,6 +14,11 @@ namespace OurStory.Service
 {
     public class StudentService : BaseServices<Student>,IStudentService
     {
-
+        IStudentRepository dal;
+        public StudentService(IStudentRepository dal)
+        {
+            this.dal = dal;
+            base.baseDal = dal;
+        }
     }
 }

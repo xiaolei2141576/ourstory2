@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +16,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OurStory.API.AuthHelper;
 using OurStory.API.SwaggerHelp;
+using OurStory.IService;
 using OurStory.Model.Common;
+using OurStory.Service;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace OurStory.API
@@ -28,7 +33,7 @@ namespace OurStory.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
@@ -77,6 +82,27 @@ namespace OurStory.API
                 options.AddPolicy("AdminOrClient", policy => policy.RequireRole("AdminOrClient").Build());
             });
             #endregion
+
+            #region autofac
+            //实例化容器
+            var builder = new ContainerBuilder();
+            //获取项目路径
+            var dllPath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
+            //注册需要通过反射创建的组件
+            //builder.RegisterType<StudentService>().As<IStudentService>();
+            //var assemblysRepository = Assembly.Load("Ourstory.Service");
+            var assemblysService = Assembly.LoadFile(Path.Combine(dllPath, "Ourstory.Service.dll"));
+            builder.RegisterAssemblyTypes(assemblysService).AsImplementedInterfaces();
+            //var assemblysRepository = Assembly.Load("Ourstory.Repository");
+            var assemblysRepository = Assembly.LoadFile(Path.Combine(dllPath, "Ourstory.Repository.dll"));
+            builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
+            //将services填充到Autofac容器生成器中
+            builder.Populate(services);
+            //使用已进行的组件登记创建新容器
+            var applicationContainer = builder.Build();
+            #endregion
+
+            return new AutofacServiceProvider(applicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
