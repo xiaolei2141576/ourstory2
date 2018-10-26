@@ -38,12 +38,16 @@ namespace OurStory.Repository.Base
             entityDB = context.GetEntityDB<TEntity>(db);
         }
 
-
-
+        /// <summary>
+        /// 根据id获取单条数据
+        /// </summary>
+        /// <param name="objId"></param>
+        /// <returns></returns>
         public async Task<TEntity> QueryById(long objId)
         {
             return await Task.Run(() => db.Queryable<TEntity>().InSingle(objId));
         }
+
         /// <summary>
         /// 功能描述:根据ID查询一条数据
         /// 作　　者:Blog.Core
@@ -101,12 +105,7 @@ namespace OurStory.Repository.Base
             return await Task.Run(() => db.Ado.ExecuteCommand(strSql, parameters) > 0);
         }
 
-        public async Task<bool> Update(
-          TEntity entity,
-          List<string> lstColumns = null,
-          List<string> lstIgnoreColumns = null,
-          string strWhere = ""
-            )
+        public async Task<bool> Update(TEntity entity, List<string> lstColumns = null, List<string> lstIgnoreColumns = null, string strWhere = "")
         {
             IUpdateable<TEntity> up = await Task.Run(() => db.Updateable(entity));
             if (lstIgnoreColumns != null && lstIgnoreColumns.Count > 0)
@@ -156,8 +155,6 @@ namespace OurStory.Repository.Base
             var i = await Task.Run(() => db.Deleteable<TEntity>().In(ids).ExecuteCommand());
             return i > 0;
         }
-
-
 
         /// <summary>
         /// 功能描述:查询所有数据
@@ -259,8 +256,6 @@ namespace OurStory.Repository.Base
             return await Task.Run(() => db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).Take(intTop).ToList());
         }
 
-
-
         /// <summary>
         /// 功能描述:分页查询
         /// 作　　者:Blog.Core
@@ -273,7 +268,9 @@ namespace OurStory.Repository.Base
         /// <returns>数据列表</returns>
         public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex, int intPageSize, string strOrderByFileds)
         {
-            return await Task.Run(() => db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).ToPageList(intPageIndex, intPageSize));
+            return await Task.Run(() =>
+                db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds)
+                    .WhereIF(whereExpression != null, whereExpression).ToPageList(intPageIndex, intPageSize));
         }
 
         /// <summary>

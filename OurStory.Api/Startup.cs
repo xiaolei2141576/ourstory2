@@ -9,6 +9,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OurStory.API.AuthHelper;
 using OurStory.API.SwaggerHelp;
+using OurStory.EfRepository.Ef;
 using OurStory.IService;
 using OurStory.Model.Common;
 using OurStory.Service;
@@ -37,6 +39,10 @@ namespace OurStory.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
+            services.AddDbContext<EfDbContext>(option =>
+            {
+                option.UseSqlServer(SqlSugarBaseDb.ConnectionString);
+            });
             #region Swagger
             services.AddSwaggerGen(s =>
             {

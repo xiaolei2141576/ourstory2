@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.IService", "OurSto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.Bussiness", "OurStory.Bussiness\OurStory.Bussiness.csproj", "{AABDFD0A-B578-4592-BA58-0CB98CBD9FA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.Entity", "OurStory.Entity\OurStory.Entity.csproj", "{C847A9DC-A3F8-4EDC-A787-20783B30EC17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.EfRepository", "OurStory.Entity\OurStory.EfRepository.csproj", "{C847A9DC-A3F8-4EDC-A787-20783B30EC17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.Model", "OurStory.Model\OurStory.Model.csproj", "{42EE3052-F414-42CC-84E1-C12218AE3937}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.Repository", "OurStory.Repository\OurStory.Repository.csproj", "{5C19FC7B-25C9-455B-8DC1-39F8A0F85895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OurStory.IRepository", "OurStory.IRepository\OurStory.IRepository.csproj", "{B36750D1-2BFF-41B6-8B8E-8CDF2018CFB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OurStory.IRepository", "OurStory.IRepository\OurStory.IRepository.csproj", "{B36750D1-2BFF-41B6-8B8E-8CDF2018CFB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
