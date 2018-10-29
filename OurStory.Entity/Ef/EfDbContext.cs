@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -17,7 +18,8 @@ namespace OurStory.EfRepository.Ef
             _option = new DbContextOption
             {
                 ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value,
-                ModelAssemblyName = Configuration.GetSection("ModelAssemblyName").Value,
+                //ModelAssemblyName = Configuration.GetSection("ModelAssemblyName").Value,
+                ModelAssemblyName = "OurStory.Model",
                 DbType = DbType.MSSQLSERVER
             };
         }
@@ -34,7 +36,7 @@ namespace OurStory.EfRepository.Ef
             var types = assembly?.GetTypes();
             var list = types?.Where(t =>
                 t.IsClass && !t.IsGenericType && !t.IsAbstract &&
-                t.GetInterfaces().Any(m => m.IsGenericType && m.GetGenericTypeDefinition() == typeof(IDBModel<>))).ToList();
+                t.GetInterfaces().Any(m => m.IsGenericType)).ToList();
             if (list != null && list.Any())
             {
                 list.ForEach(t =>
