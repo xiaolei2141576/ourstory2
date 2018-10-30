@@ -51,7 +51,7 @@ namespace OurStory.Service.Base
         /// </summary>
         /// <param name="entity">博文实体类</param>
         /// <returns></returns>
-        public async Task<int> Add(TEntity entity)
+        public async Task<long> Add(TEntity entity)
         {
             return await baseDal.Add(entity);
         }

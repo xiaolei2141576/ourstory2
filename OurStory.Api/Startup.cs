@@ -19,6 +19,7 @@ using OurStory.API.AuthHelper;
 using OurStory.API.SwaggerHelp;
 using OurStory.EfRepository.Ef;
 using OurStory.IService;
+using OurStory.IService.Base;
 using OurStory.Model.Common;
 using OurStory.Service;
 using Swashbuckle.AspNetCore.Swagger;
@@ -38,9 +39,36 @@ namespace OurStory.API
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
-            services.AddDbContext<EfDbContext>(option =>
+            services.AddDbContext<DbContext>(option =>
             {
-                option.UseSqlServer(SqlSugarBaseDb.ConnectionString, db => db.UseRowNumberForPaging());
+                //option.UseSqlServer(SqlSugarBaseDb.ConnectionString, db => db.UseRowNumberForPaging());
+                option.UseSqlServer(SqlSugarBaseDb.ConnectionString);
+            });
+            services.AddSingleton(SqlSugarBaseDb.ConnectionString);
+            services.AddTransient<IStudentSubscriberService, StudentService>();
+
+            services.AddCap(c =>
+            {
+                c.UseSqlServer(SqlSugarBaseDb.ConnectionString);
+                c.UseRabbitMQ(cfg =>
+                {
+                    cfg.HostName ="localhost";
+                    cfg.VirtualHost = "/";
+                    cfg.Port = 15672;
+                    cfg.UserName = "sa";
+                    cfg.Password = "123456";
+                });
+                c.DefaultGroup = "default-group-name";
+                c.UseDashboard();
+                c.UseDiscovery(d =>
+                {
+                    d.DiscoveryServerHostName = "localhost";
+                    d.DiscoveryServerPort = 8500;
+                    d.CurrentNodeHostName = "localhost";
+                    d.CurrentNodePort = 5800;
+                    d.NodeId = 1;
+                    d.NodeName = "CAP No.1 Node";
+                });
             });
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -126,7 +154,7 @@ namespace OurStory.API
             }
             app.UseMiddleware<JwtTokenAuth>();
             app.UseMvc();
-
+            //app.UseCap();
         }
     }
 }

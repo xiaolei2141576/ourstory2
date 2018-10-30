@@ -13,7 +13,7 @@ namespace OurStory.IRepository.Base
         Task<TEntity> QueryById(long objId, bool blnUseCache = false);
         Task<List<TEntity>> QueryByIds(long[] lstIds);
 
-        Task<int> Add(TEntity model);
+        Task<long> Add(TEntity model);
 
         Task<bool> DeleteById(long id);
 

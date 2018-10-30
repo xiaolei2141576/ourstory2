@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetCore.CAP;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Xml;
 using OurStory.IService;
 using OurStory.Model;
+using OurStory.Model.Common;
 using OurStory.Service;
+using SqlSugar;
 
 namespace OurStory.API.Controllers.Admin
 {
@@ -19,17 +23,11 @@ namespace OurStory.API.Controllers.Admin
     public class StudentController : Controller
     {
         IStudentService studentService;
-        public StudentController(IStudentService studentService)
+        private readonly ICapPublisher _capBus;
+        public StudentController(IStudentService studentService, ICapPublisher capBus)
         {
             this.studentService = studentService;
-        }
-
-        [HttpGet("{id}",Name = "Get")]
-        public async Task<Student> Get(int id)
-        {
-            //IStudentService service = new IStudentService();
-
-            return await studentService.QueryById(id);
-        }
+            this._capBus = capBus;
+        }        
     }
 }

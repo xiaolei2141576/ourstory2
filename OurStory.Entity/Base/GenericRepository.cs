@@ -21,7 +21,6 @@ namespace OurStory.EfRepository.Base
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();
         }
-
         #region 查询
         /// <summary>
         /// 单表查询

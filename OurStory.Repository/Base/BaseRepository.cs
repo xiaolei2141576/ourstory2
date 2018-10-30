@@ -76,11 +76,11 @@ namespace OurStory.Repository.Base
         /// </summary>
         /// <param name="entity">博文实体类</param>
         /// <returns></returns>
-        public async Task<int> Add(TEntity entity)
+        public async Task<long> Add(TEntity entity)
         {
             var i = await Task.Run(() => db.Insertable(entity).ExecuteReturnBigIdentity());
             //返回的i是long类型,这里你可以根据你的业务需要进行处理
-            return (int)i;
+            return (long)i;
         }
 
         /// <summary>
