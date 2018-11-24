@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Base\EfBaseService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetCore.CAP" Version="2.3.1" />
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.3.1" />
     <PackageReference Include="DotNetCore.CAP.SqlServer" Version="2.3.1" />

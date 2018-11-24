@@ -37,24 +37,29 @@ namespace OurStory.API.Controllers.Admin
         [HttpPost(Name = "Add")]
         public async Task<bool> Add()
         {
-            int count = 0;
+            long count = 0;
             using (var trans = _dbConnection.BeginTransaction(_capBus, autoCommit : true))
             {
+                var school = new School() {
+                    Name = "misA丶"
+                };
+                count = await schoolService.Add(school);
+                await _capBus.PublishAsync("school.service.show.add", count);
 
             }
-            using (var conn = new SqlConnection(BaseDBConfig.ConnectionString))
-            {
-                using (var trans = conn.BeginTransaction(_capBus, autoCommit: true))
-                {
-                    string sqlCommand = @"INSERT INTO [dbo].[School](Name) VALUES(@Name);";
-                    sqlCommand += "SELECT CAST(SCOPE_IDENTITY() as int)";
-                    count = await conn.ExecuteAsync(sqlCommand, param: new { Name = "misA丶" }, transaction: trans);
-                    //var sh = new School() { Name = "misA"};
-                    //schoolId = await schoolService.Add(sh);
-                    await _capBus.PublishAsync("school.service.show.add", count);
-                    //trans.Commit();
-                }
-            }
+            //using (var conn = new SqlConnection(BaseDBConfig.ConnectionString))
+            //{
+            //    using (var trans = conn.BeginTransaction(_capBus, autoCommit: true))
+            //    {
+            //        string sqlCommand = @"INSERT INTO [dbo].[School](Name) VALUES(@Name);";
+            //        sqlCommand += "SELECT CAST(SCOPE_IDENTITY() as int)";
+            //        count = await conn.ExecuteAsync(sqlCommand, param: new { Name = "misA丶" }, transaction: trans);
+            //        //var sh = new School() { Name = "misA"};
+            //        //schoolId = await schoolService.Add(sh);
+            //        await _capBus.PublishAsync("school.service.show.add", count);
+            //        //trans.Commit();
+            //    }
+            //}
             return count > 0;
         }
     }

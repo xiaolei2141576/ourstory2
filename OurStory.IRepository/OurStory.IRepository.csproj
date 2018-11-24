@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Base\IEfBaseRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OurStory.Model\OurStory.Model.csproj" />
   </ItemGroup>
 

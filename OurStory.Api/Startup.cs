@@ -151,9 +151,9 @@ namespace OurStory.API
                 app.UseSwaggerUI(s => s.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiHelp V1"));
                 #endregion
             }
+            app.UseCap();
             app.UseMiddleware<JwtTokenAuth>();
             app.UseMvc();
-            //app.UseCap();
         }
     }
 }
