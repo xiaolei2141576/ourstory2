@@ -37,7 +37,7 @@ namespace OurStory.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
+            SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
             //services.AddDbContext<DbContext>(option =>
             //{
             //    //option.UseSqlServer(SqlSugarBaseDb.ConnectionString, db => db.UseRowNumberForPaging());
@@ -151,7 +151,7 @@ namespace OurStory.API
                 app.UseSwaggerUI(s => s.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiHelp V1"));
                 #endregion
             }
-            app.UseCap();
+            //app.UseCap();
             app.UseMiddleware<JwtTokenAuth>();
             app.UseMvc();
         }

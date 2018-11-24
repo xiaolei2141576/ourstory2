@@ -8,7 +8,6 @@ namespace OurStory.IRepository.Base
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-
         Task<TEntity> QueryById(long objId);
         Task<TEntity> QueryById(long objId, bool blnUseCache = false);
         Task<List<TEntity>> QueryByIds(long[] lstIds);

@@ -21,11 +21,11 @@ namespace OurStory.Service
 {
     public class StudentService : BaseServices<Student>,IStudentService, IStudentSubscriberService, ICapSubscribe
     {
-        IStudentRepository dal;
+        IStudentRepository _dal;
         private readonly string connStr = "";
         public StudentService(IStudentRepository dal)
         {
-            this.dal = dal;
+            this._dal = dal;
             base.baseDal = dal;
         }
         [CapSubscribe("school.service.show.add")]
@@ -37,6 +37,7 @@ namespace OurStory.Service
 
         private async Task<bool> AddStudent(int schoolId)
         {
+            _dal.
             using (var conn = new SqlConnection(BaseDBConfig.ConnectionString2))
             {
                 string sqlCommand = @"INSERT INTO [dbo].[Student](SchoolId,Name) VALUES(@SchoolId,@Name);";

@@ -3,6 +3,7 @@ using OurStory.Repository.Sugar;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace OurStory.Repository.Base
         private DbContext context;
         private SqlSugarClient db;
         private SimpleClient<TEntity> entityDB;
+        public System.Data.IDbConnection _dbConnection;
 
         public DbContext Context
         {
@@ -25,6 +27,12 @@ namespace OurStory.Repository.Base
             get { return db; }
             private set { db = value; }
         }
+
+        public System.Data.IDbConnection IDbConnection
+        {
+            get { return _dbConnection; }
+            private set { _dbConnection = value; }
+        }
         internal SimpleClient<TEntity> EntityDB
         {
             get { return entityDB; }
@@ -35,8 +43,8 @@ namespace OurStory.Repository.Base
             DbContext.Init(BaseDBConfig.ConnectionString);
             context = DbContext.GetDbContext();
             db = context.Db;
-
             entityDB = context.GetEntityDB<TEntity>(db);
+            _dbConnection = db.Ado.Connection;
         }
 
         /// <summary>
