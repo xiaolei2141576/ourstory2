@@ -1,6 +1,7 @@
 ﻿using SqlSugar;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace OurStory.Repository.Sugar
@@ -11,6 +12,7 @@ namespace OurStory.Repository.Sugar
         private static string _connectionString;
         private static DbType _dbType;
         private SqlSugarClient _db;
+        public System.Data.IDbConnection _dbConnection;
 
         /// <summary>
         /// 连接字符串 
@@ -38,6 +40,12 @@ namespace OurStory.Repository.Sugar
         {
             get { return _db; }
             private set { _db = value; }
+        }
+
+        public System.Data.IDbConnection IDbConnection
+        {
+            get { return _dbConnection; }
+            private set { _dbConnection = value; }
         }
 
         /// <summary>
@@ -78,6 +86,7 @@ namespace OurStory.Repository.Sugar
                     IsAutoRemoveDataCache = true
                 }
             });
+            _dbConnection = _db.Ado.Connection;
         }
 
         /// <summary>
@@ -105,6 +114,7 @@ namespace OurStory.Repository.Sugar
                     IsAutoRemoveDataCache = true
                 }
             });
+            _dbConnection = _db.Ado.Connection;
         }
 
         #region 实例方法

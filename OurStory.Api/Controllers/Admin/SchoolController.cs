@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,17 +25,23 @@ namespace OurStory.API.Controllers.Admin
 
         private readonly ISchoolService schoolService;
         private readonly ICapPublisher _capBus;
+        private IDbConnection _dbConnection;
 
-        public SchoolController(ISchoolService service, ICapPublisher capBus)
+        public SchoolController(ISchoolService service, ICapPublisher capBus, IDbConnection dbConnection)
         {
             this.schoolService = service;
             this._capBus = capBus;
+            this._dbConnection = dbConnection;
         }
 
         [HttpPost(Name = "Add")]
         public async Task<bool> Add()
         {
             int count = 0;
+            using (var trans = _dbConnection.BeginTransaction(_capBus, autoCommit : true))
+            {
+
+            }
             using (var conn = new SqlConnection(BaseDBConfig.ConnectionString))
             {
                 using (var trans = conn.BeginTransaction(_capBus, autoCommit: true))

@@ -9,7 +9,6 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,10 +16,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OurStory.API.AuthHelper;
 using OurStory.API.SwaggerHelp;
-using OurStory.EfRepository.Ef;
 using OurStory.IService;
 using OurStory.IService.Base;
 using OurStory.Model.Common;
+using OurStory.Repository.Sugar;
 using OurStory.Service;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -38,14 +37,14 @@ namespace OurStory.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
-            services.AddDbContext<DbContext>(option =>
-            {
-                //option.UseSqlServer(SqlSugarBaseDb.ConnectionString, db => db.UseRowNumberForPaging());
-                option.UseSqlServer(SqlSugarBaseDb.ConnectionString);
-            });
-            services.AddSingleton(SqlSugarBaseDb.ConnectionString);
-            services.AddTransient<IStudentSubscriberService, StudentService>();
+            //SqlSugarBaseDb.ConnectionString = Configuration.GetSection("AppSettings:SqlServerConnection").Value; //获取数据库链接字符串
+            //services.AddDbContext<DbContext>(option =>
+            //{
+            //    //option.UseSqlServer(SqlSugarBaseDb.ConnectionString, db => db.UseRowNumberForPaging());
+            //    option.UseSqlServer(SqlSugarBaseDb.ConnectionString);
+            //});
+            //services.AddSingleton(SqlSugarBaseDb.ConnectionString);
+            //services.AddTransient<IStudentSubscriberService, StudentService>();
 
             services.AddCap(c =>
             {

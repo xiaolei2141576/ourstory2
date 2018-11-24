@@ -35,6 +35,7 @@ namespace OurStory.Repository.Base
             DbContext.Init(BaseDBConfig.ConnectionString);
             context = DbContext.GetDbContext();
             db = context.Db;
+
             entityDB = context.GetEntityDB<TEntity>(db);
         }
 
