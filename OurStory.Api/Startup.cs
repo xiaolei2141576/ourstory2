@@ -44,7 +44,7 @@ namespace OurStory.API
             //    option.UseSqlServer(SqlSugarBaseDb.ConnectionString);
             //});
             //services.AddSingleton(SqlSugarBaseDb.ConnectionString);
-            //services.AddTransient<IStudentSubscriberService, StudentService>();
+            services.AddTransient<IStudentSubscriberService, StudentService>();
 
             services.AddCap(c =>
             {
@@ -53,7 +53,7 @@ namespace OurStory.API
                 {
                     cfg.HostName ="localhost";
                     cfg.VirtualHost = "/";
-                    cfg.Port = 15672;
+                    cfg.Port = 5672;
                     cfg.UserName = "sa";
                     cfg.Password = "123456";
                 });
@@ -151,7 +151,6 @@ namespace OurStory.API
                 app.UseSwaggerUI(s => s.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiHelp V1"));
                 #endregion
             }
-            //app.UseCap();
             app.UseMiddleware<JwtTokenAuth>();
             app.UseMvc();
         }

@@ -7,7 +7,5 @@ namespace OurStory.Repository.Sugar
     public class BaseDBConfig
     {
         public static string ConnectionString = "server=.;uid=sa;pwd=123456789;database=OurStory";
-        public static string ConnectionString2 = "server=.;uid=sa;pwd=123456789;database=OurStory2";
-
     }
 }

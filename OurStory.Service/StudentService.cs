@@ -19,15 +19,9 @@ using OurStory.Repository.Sugar;
 
 namespace OurStory.Service
 {
-    public class StudentService : BaseServices<Student>,IStudentService, IStudentSubscriberService, ICapSubscribe
+    public class StudentService : BaseServices<Student>, IStudentSubscriberService, ICapSubscribe
     {
-        IStudentRepository _dal;
         private readonly string connStr = "";
-        public StudentService(IStudentRepository dal)
-        {
-            this._dal = dal;
-            base.baseDal = dal;
-        }
         [CapSubscribe("school.service.show.add")]
         public async Task ConsumeStudentMessage(object message)
         {
@@ -37,11 +31,10 @@ namespace OurStory.Service
 
         private async Task<bool> AddStudent(int schoolId)
         {
-            _dal.
-            using (var conn = new SqlConnection(BaseDBConfig.ConnectionString2))
+            using (var conn = new SqlConnection(BaseDBConfig.ConnectionString))
             {
-                string sqlCommand = @"INSERT INTO [dbo].[Student](SchoolId,Name) VALUES(@SchoolId,@Name);";
-                int count = await conn.ExecuteAsync(sqlCommand, param: new { SchoolId = schoolId, Name = "Cap" });
+                string sqlCommand = @"INSERT INTO [dbo].[Student](Id,SchoolId,Name) VALUES(@Id,@SchoolId,@Name);";
+                int count = await conn.ExecuteAsync(sqlCommand, param: new { Id=10, SchoolId = schoolId, Name = "Cap" });
                 return count > 0;
             }
         }
