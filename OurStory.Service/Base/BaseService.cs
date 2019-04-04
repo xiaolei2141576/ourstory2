@@ -18,7 +18,7 @@ namespace OurStory.Service.Base
         /// </summary>
         /// <param name="objId">id（必须指定主键特性 [SugarColumn(IsPrimaryKey=true)]），如果是联合主键，请使用Where条件</param>
         /// <returns>数据实体</returns>
-        public async Task<TEntity> QueryById(long objId)
+        public async Task<TEntity> QueryById(object objId)
         {
             return await baseDal.QueryById(objId);
         }
@@ -28,7 +28,7 @@ namespace OurStory.Service.Base
         /// <param name="objId">id（必须指定主键特性 [SugarColumn(IsPrimaryKey=true)]），如果是联合主键，请使用Where条件</param>
         /// <param name="blnUseCache">是否使用缓存</param>
         /// <returns>数据实体</returns>
-        public async Task<TEntity> QueryById(long objId, bool blnUseCache = false)
+        public async Task<TEntity> QueryById(object objId, bool blnUseCache = false)
         {
             return await baseDal.QueryById(objId, blnUseCache);
         }
@@ -38,7 +38,7 @@ namespace OurStory.Service.Base
         /// </summary>
         /// <param name="lstIds">id列表（必须指定主键特性 [SugarColumn(IsPrimaryKey=true)]），如果是联合主键，请使用Where条件</param>
         /// <returns>数据实体列表</returns>
-        public async Task<List<TEntity>> QueryByIds(long[] lstIds)
+        public async Task<List<TEntity>> QueryByIds(object[] lstIds)
         {
             return await baseDal.QueryByIds(lstIds);
         }
@@ -48,7 +48,7 @@ namespace OurStory.Service.Base
         /// </summary>
         /// <param name="entity">博文实体类</param>
         /// <returns></returns>
-        public async Task<long> Add(TEntity entity)
+        public async Task<object> Add(TEntity entity)
         {
             return await baseDal.Add(entity);
         }
@@ -93,7 +93,7 @@ namespace OurStory.Service.Base
         /// </summary>
         /// <param name="id">主键ID</param>
         /// <returns></returns>
-        public async Task<bool> DeleteById(long id)
+        public async Task<bool> DeleteById(object id)
         {
             return await baseDal.DeleteById(id);
         }
@@ -103,7 +103,7 @@ namespace OurStory.Service.Base
         /// </summary>
         /// <param name="ids">主键ID集合</param>
         /// <returns></returns>
-        public async Task<bool> DeleteByIds(long[] ids)
+        public async Task<bool> DeleteByIds(object[] ids)
         {
             return await baseDal.DeleteByIds(ids);
         }

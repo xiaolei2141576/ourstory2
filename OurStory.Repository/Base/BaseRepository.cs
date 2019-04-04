@@ -15,7 +15,6 @@ namespace OurStory.Repository.Base
         private DbContext context;
         private SqlSugarClient db;
         private SimpleClient<TEntity> entityDB;
-        public System.Data.IDbConnection _dbConnection;
 
         public DbContext Context
         {
@@ -28,11 +27,6 @@ namespace OurStory.Repository.Base
             private set { db = value; }
         }
 
-        public System.Data.IDbConnection IDbConnection
-        {
-            get { return _dbConnection; }
-            private set { _dbConnection = value; }
-        }
         internal SimpleClient<TEntity> EntityDB
         {
             get { return entityDB; }
@@ -44,7 +38,6 @@ namespace OurStory.Repository.Base
             context = DbContext.GetDbContext();
             db = context.Db;
             entityDB = context.GetEntityDB<TEntity>(db);
-            _dbConnection = db.Ado.Connection;
         }
 
         /// <summary>
@@ -52,7 +45,7 @@ namespace OurStory.Repository.Base
         /// </summary>
         /// <param name="objId"></param>
         /// <returns></returns>
-        public async Task<TEntity> QueryById(long objId)
+        public async Task<TEntity> QueryById(object objId)
         {
             return await Task.Run(() => db.Queryable<TEntity>().InSingle(objId));
         }
@@ -63,7 +56,7 @@ namespace OurStory.Repository.Base
         /// <param name="objId">id（必须指定主键特性 [SugarColumn(IsPrimaryKey=true)]），如果是联合主键，请使用Where条件</param>
         /// <param name="blnUseCache">是否使用缓存</param>
         /// <returns>数据实体</returns>
-        public async Task<TEntity> QueryById(long objId, bool blnUseCache = false)
+        public async Task<TEntity> QueryById(object objId, bool blnUseCache = false)
         {
             return await Task.Run(() => db.Queryable<TEntity>().WithCacheIF(blnUseCache).InSingle(objId));
         }
@@ -73,7 +66,7 @@ namespace OurStory.Repository.Base
         /// </summary>
         /// <param name="lstIds">id列表（必须指定主键特性 [SugarColumn(IsPrimaryKey=true)]），如果是联合主键，请使用Where条件</param>
         /// <returns>数据实体列表</returns>
-        public async Task<List<TEntity>> QueryByIds(long[] lstIds)
+        public async Task<List<TEntity>> QueryByIds(object[] lstIds)
         {
             return await Task.Run(() => db.Queryable<TEntity>().In(lstIds).ToList());
         }
@@ -83,11 +76,11 @@ namespace OurStory.Repository.Base
         /// </summary>
         /// <param name="entity">博文实体类</param>
         /// <returns></returns>
-        public async Task<long> Add(TEntity entity)
+        public async Task<object> Add(TEntity entity)
         {
             var i = await Task.Run(() => db.Insertable(entity).ExecuteReturnBigIdentity());
-            //返回的i是long类型,这里你可以根据你的业务需要进行处理
-            return (long)i;
+            //返回的i是object类型,这里你可以根据你的业务需要进行处理
+            return (object)i;
         }
 
         /// <summary>
@@ -146,7 +139,7 @@ namespace OurStory.Repository.Base
         /// </summary>
         /// <param name="id">主键ID</param>
         /// <returns></returns>
-        public async Task<bool> DeleteById(long id)
+        public async Task<bool> DeleteById(object id)
         {
             var i = await Task.Run(() => db.Deleteable<TEntity>(id).ExecuteCommand());
             return i > 0;
@@ -157,7 +150,7 @@ namespace OurStory.Repository.Base
         /// </summary>
         /// <param name="ids">主键ID集合</param>
         /// <returns></returns>
-        public async Task<bool> DeleteByIds(long[] ids)
+        public async Task<bool> DeleteByIds(object[] ids)
         {
             var i = await Task.Run(() => db.Deleteable<TEntity>().In(ids).ExecuteCommand());
             return i > 0;

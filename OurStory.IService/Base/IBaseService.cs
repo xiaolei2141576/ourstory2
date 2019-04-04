@@ -9,17 +9,17 @@ namespace OurStory.IService.Base
     public interface IBaseServices<TEntity> where TEntity : class
     {
 
-        Task<TEntity> QueryById(long objId);
-        Task<TEntity> QueryById(long objId, bool blnUseCache = false);
-        Task<List<TEntity>> QueryByIds(long[] lstIds);
+        Task<TEntity> QueryById(object objId);
+        Task<TEntity> QueryById(object objId, bool blnUseCache = false);
+        Task<List<TEntity>> QueryByIds(object[] lstIds);
 
-        Task<long> Add(TEntity model);
+        Task<object> Add(TEntity model);
 
-        Task<bool> DeleteById(long id);
+        Task<bool> DeleteById(object id);
 
         Task<bool> Delete(TEntity model);
 
-        Task<bool> DeleteByIds(long[] ids);
+        Task<bool> DeleteByIds(object[] ids);
 
         Task<bool> Update(TEntity model);
         Task<bool> Update(TEntity entity, string strWhere);
